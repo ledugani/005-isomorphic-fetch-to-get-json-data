@@ -10,6 +10,8 @@ class App extends React.Component {
       facts: [],
       newFact: '',
     }
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +30,7 @@ class App extends React.Component {
   }
 
   handleChange(e) {
+
     this.setState({
       newFact: e.target.value
     })

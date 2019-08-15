@@ -8,6 +8,11 @@ export default function Facts(props) {
         onChange={props.handleChange}
         value={props.value}
       />
+      <button
+        onClick={props.handleClick}
+      >
+        Submit New Fact
+      </button>
       <ul>
         {
           props.facts.map(fact =>

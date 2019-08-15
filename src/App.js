@@ -6,12 +6,14 @@ import Facts from './components/facts';
 class App extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       facts: [],
       newFact: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,30 @@ class App extends React.Component {
     })
   }
 
+  handleClick() {
+    fetch('https://jsonplaceholder.typicode.com/todos', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        fact: {
+          title: this.state.newFact
+        }
+      })
+    }).then(response => response.json())
+      .then(json => {
+        this.setState({
+          newFact: '',
+          facts: [
+            ...this.state.facts,
+            json.fact
+          ]
+        })
+      })
+  }
+
   render() {
     return (
       <div>
@@ -43,6 +69,7 @@ class App extends React.Component {
           facts={this.state.facts}
           value={this.state.newFact}
           handleChange={this.handleChange}
+          handleClick={this.handleClick}
         />
       </div>
     )
